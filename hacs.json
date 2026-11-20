@@ -1,7 +1,8 @@
 {
   "name": "Nexus System Local",
-  "content_in_root": false,
-  "country": ["FR"],
+  "render_readme": true,
   "homeassistant": "2024.11.0",
-  "render_readme": true
+  "country": ["FR"],
+  "zip_release": true,
+  "filename": "nexus_system_local.zip"
 }
