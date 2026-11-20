@@ -1,68 +1,67 @@
-# PoolNexus HA Addons
+# Nexus System Local
 
-Home Assistant integration for PoolNexus devices via MQTT.
+Your Nexus System devices (Pool Nexus, and the next products) in Home Assistant, **on your local
+network**, without going through the Nexus System cloud.
 
-IMPORTANT: MQTT topics are namespaced per device to avoid collisions when
-multiple PoolNexus instances share the same broker. The required topic format is:
+[Version française](README.md)
 
-```
-<mqtt_topic_prefix>/<serialNumber>/<resource>
-```
+## How it works
 
-The `serial` (device serial number) must be provided during configuration
-so the integration can build topics in the exact `{prefix}/{serialNumber}`
-format.
+Each Nexus System device publishes Home Assistant discovery itself on **your** MQTT broker: Home
+Assistant creates the device and all its entities (readings, status, alerts, settings, controls),
+in the device's language, through the **MQTT** integration. Nothing to declare by hand, and a new
+firmware brings its new entities by itself.
 
-See `MQTT-TOPICS-EN.md` for the complete topic list and examples.
+The **Nexus System Local** integration recognises these devices, whatever the product, and adds:
 
-Links:
-- French README: `README.md`
-- MQTT topics (FR): `MQTT-TOPICS.md`
+| Addition | Use |
+|---|---|
+| **Local link** (binary sensor, one per device) | Online / offline on the broker, for automations and alerts. |
+| **"Send to a Nexus device" action** (`nexus_system_local.send`) | Send a setting or a command; the device applies the same checks as the app. |
+| **`nexus_system_local_result` event** | The device's answer to each send. |
+| **Repair** | Warns when MQTT discovery is disabled (entities would not appear). |
+| **Diagnostics** | The devices seen, their firmware and MQTT topic. |
 
 ## Installation
 
-This integration can be installed via HACS (Home Assistant Community Store).
+1. **MQTT broker**: install the **Mosquitto** add-on, create a user for your devices and enable the
+   **TLS** listener (port 8883) with your certificate.
+2. Home Assistant **MQTT integration**, discovery enabled (the default).
+3. **In the Nexus System app**: open the device, *Local configuration* (or the Bluetooth setup),
+   set the broker (address, port, user, password, TLS). The device shows up in Home Assistant
+   within seconds.
+4. **Nexus System Local**: HACS › Custom repositories › this repository (*Integration*), install,
+   restart Home Assistant, then Settings › Devices & services › Add › *Nexus System Local*. The
+   assistant lists the devices found on the broker.
 
-1. Add this repository to HACS
-2. Install the integration
-3. Restart Home Assistant
-4. Add the integration via Configuration > Integrations
+One setup follows every Nexus System device on the broker.
 
-## Configuration
+## Examples
 
-### UI configuration
-
-1. Go to Configuration > Integrations
-2. Click "Add integration"
-3. Search for "PoolNexus"
-4. Configure MQTT settings:
-   - **MQTT Broker**: IP or hostname of the MQTT broker
-   - **Port**: Broker port (default: 1883)
-   - **Username**: MQTT username (optional)
-   - **Password**: MQTT password (optional)
-   - **Topic prefix**: MQTT topic prefix (default: poolnexus)
-  - **Serial (required)**: device serial to namespace topics as `poolnexus/<serial>/...`
-   - **Scan devices (optional)**: briefly scan the broker for devices under the prefix
-
-### Manual configuration
-
-You can also add an entry via `configuration.yaml` (UI config is preferred):
+Turn on a Pool Nexus's lights:
 
 ```yaml
-poolnexus:
-  mqtt_broker: "192.168.1.100"
-  mqtt_port: 1883
-  mqtt_username: "mqtt_user"
-  mqtt_password: "mqtt_password"
-  mqtt_topic_prefix: "poolnexus"
+action: nexus_system_local.send
+data:
+  device_id: <your device>
+  data:
+    outputs:
+      lights: true
 ```
 
-## Where to find MQTT topics
+The keys each device accepts, the entities created and the security rules (unencrypted broker:
+only the lights stay controllable) are described in the Nexus System "Local mode, local MQTT and
+Home Assistant" documentation.
 
-See `MQTT-TOPICS-EN.md` for exact topic names, examples and migration notes.
+## Coming from the old "PoolNexus" integration
 
-Note: The topics list has been expanded (pump, additional switches, firmware/availability/alert information). See `MQTT-TOPICS-EN.md` for the full, up-to-date topic list.
+The old integration (`poolnexus`) listened to `poolnexus/<serial>/…` topics the devices no longer
+publish. Remove it (Settings › Devices & services › PoolNexus › Delete), then follow the
+installation above.
 
-## Support
+## Development
 
-For support and questions, please open an issue on the GitHub repository.
+```bash
+python3 tests/test_discovery.py
+pip install pytest-homeassistant-custom-component && pytest
+```

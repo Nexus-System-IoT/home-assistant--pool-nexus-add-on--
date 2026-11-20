@@ -1,0 +1,13 @@
+send:
+  fields:
+    device_id:
+      required: true
+      selector:
+        device:
+          filter:
+            - manufacturer: Nexus System
+    data:
+      required: true
+      example: '{"outputs": {"lights": true}}'
+      selector:
+        object:

@@ -1,0 +1,51 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Nexus System Local",
+        "description": "Your Nexus System devices publish their own entities on your MQTT broker: they appear through the MQTT integration. Nexus System Local adds each device's local link, the \"Send to a Nexus device\" action and diagnostics.\n\n**{count} device(s) found on the broker:**\n{devices}\n\nNone? Set the broker in the Nexus System app (the device's local configuration), then come back."
+      }
+    },
+    "abort": {
+      "already_configured": "Nexus System Local is already set up: it follows every device on the broker.",
+      "mqtt_required": "Set up the MQTT integration first (for example with the Mosquitto add-on)."
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "local_link": {
+        "name": "Local link"
+      }
+    }
+  },
+  "issues": {
+    "mqtt_discovery_disabled": {
+      "title": "MQTT discovery disabled",
+      "description": "The entities of Nexus System devices (readings, settings, controls) come from MQTT discovery, which is disabled in the MQTT integration. Turn it back on: Settings › Devices & services › MQTT › Configure › Enable discovery."
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Send to a Nexus device",
+      "description": "Sends a setting or a command to a Nexus System device over the local network. The device applies the same checks as the app and answers with the nexus_system_local_result event.",
+      "fields": {
+        "device_id": {
+          "name": "Device",
+          "description": "The Nexus System device."
+        },
+        "data": {
+          "name": "Data",
+          "description": "JSON object the device accepts (see the \"Local MQTT and home automation\" documentation page), for example {\"outputs\": {\"lights\": true}}."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "unknown_device": {
+      "message": "{device} is not a Nexus System device seen on the broker."
+    },
+    "not_loaded": {
+      "message": "Nexus System Local is not loaded."
+    }
+  }
+}

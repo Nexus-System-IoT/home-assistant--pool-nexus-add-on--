@@ -1,10 +1,7 @@
 {
-  "name": "PoolNexus HA Addons",
+  "name": "Nexus System Local",
   "content_in_root": false,
-  "filename": "poolnexus",
   "country": ["FR"],
-  "homeassistant": "2023.1.0",
-  "render_readme": true,
-  "logo": "https://raw.githubusercontent.com/PoolNexus/PoolNexus-HA-addons/main/PoolNexusLogo.png"
+  "homeassistant": "2024.11.0",
+  "render_readme": true
 }
-
