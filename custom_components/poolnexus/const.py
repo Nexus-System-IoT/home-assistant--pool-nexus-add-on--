@@ -122,14 +122,6 @@ SWITCH_TYPES = {
         "name": "Pompe de circulation",
         "icon": "mdi:fan",
     },
-    "switch_1": {
-        "name": "Switch 1",
-        "icon": "mdi:toggle-switch",
-    },
-    "switch_2": {
-        "name": "Switch 2",
-        "icon": "mdi:toggle-switch-off",
-    },
     "screen_lock": {
         "name": "Verrouillage écran",
         "icon": "mdi:lock",

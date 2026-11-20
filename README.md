@@ -108,16 +108,6 @@ poolnexus:
 - **Format** : `ON` ou `OFF`
 - **Exemple** : Publier `ON` sur `poolnexus/PN0001/pump/set` pour activer
 
-#### Switch 1
-- **Topic de commande** : `{prefix}/{serialNumber}/switch_1/set`
-- **Format** : `ON` ou `OFF`
-- **Exemple** : Publier `ON` sur `poolnexus/PN0001/switch_1/set` pour activer
-
-#### Switch 2
-- **Topic de commande** : `{prefix}/{serialNumber}/switch_2/set`
-- **Format** : `ON` ou `OFF`
-- **Exemple** : Publier `ON` sur `poolnexus/PN0001/switch_2/set` pour activer
-
 #### State
 - **Topic de commande** : `{prefix}/{serialNumber}/{switch}/state`
 - **Format** : `ON` ou `OFF`

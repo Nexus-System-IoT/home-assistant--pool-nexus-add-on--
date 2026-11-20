@@ -71,15 +71,13 @@ DEFAULT_STATE = {
     "electrovalve": False,
     "auto_fill": False,
     "pump": True,
-    "switch_1": False,
-    "switch_2": False,
     "screen_lock": False,
     # select
     "operating_mode": "normal",
 }
 
 TEXT_TYPES = ["set_ph", "set_redox", "set_temperature"]
-SWITCH_TYPES = ["electrovalve", "auto_fill", "pump", "switch_1", "switch_2", "screen_lock"]
+SWITCH_TYPES = ["electrovalve", "auto_fill", "pump", "screen_lock"]
 SELECT_TYPES = ["operating_mode"]
 SENSOR_TYPES = ["temperature", "ph", "chlorine", "water_level", "chlorine_level", "ph_level"]
 INFO_TYPES = ["firmware", "last_pH_prob_cal", "last_ORP_prob_cal", "availability", "alert", "last_pump_cleaning"]

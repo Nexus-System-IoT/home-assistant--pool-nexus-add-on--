@@ -32,8 +32,6 @@ Les switches publient sur des topics `.../<switch_type>/set` :
 - `poolnexus/SN12345/electrovalve/set` — payload `ON` / `OFF` (publish avec `retain=True`)
 - `poolnexus/SN12345/auto_fill/set` — payload `ON` / `OFF` (publish avec `retain=True`)
  - `poolnexus/SN12345/pump/set` — payload `ON` / `OFF` (publish avec `retain=True`)
- - `poolnexus/SN12345/switch_1/set` — payload `ON` / `OFF` (publish avec `retain=True`)
- - `poolnexus/SN12345/switch_2/set` — payload `ON` / `OFF` (publish avec `retain=True`)
 - `poolnexus/SN12345/screen_lock/set` — payload `ON` / `OFF` (publish avec `retain=True`)
 
 Les switches utilisent `homeassistant.components.mqtt.async_publish(..., retain=True)`.
