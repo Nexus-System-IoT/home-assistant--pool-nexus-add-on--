@@ -1,0 +1,51 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Nexus System Local",
+        "description": "Vos appareils Nexus System publient eux-mêmes leurs entités sur votre broker MQTT : elles apparaissent avec l'intégration MQTT. Nexus System Local ajoute la liaison locale de chaque appareil, l'action « Envoyer à un appareil Nexus » et un diagnostic.\n\n**{count} appareil(s) trouvé(s) sur le broker :**\n{devices}\n\nAucun ? Réglez le broker dans l'application Nexus System (configuration locale de l'appareil), puis revenez."
+      }
+    },
+    "abort": {
+      "already_configured": "Nexus System Local est déjà installée : elle suit tous les appareils du broker.",
+      "mqtt_required": "Installez et configurez d'abord l'intégration MQTT (par exemple avec le module complémentaire Mosquitto)."
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "local_link": {
+        "name": "Liaison locale"
+      }
+    }
+  },
+  "issues": {
+    "mqtt_discovery_disabled": {
+      "title": "Découverte MQTT désactivée",
+      "description": "Les entités des appareils Nexus System (mesures, réglages, commandes) viennent de la découverte MQTT, désactivée dans l'intégration MQTT. Réactivez-la : Paramètres › Appareils et services › MQTT › Configurer › Activer la découverte."
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Envoyer à un appareil Nexus",
+      "description": "Envoie un réglage ou une commande à un appareil Nexus System, sur le réseau local. L'appareil applique les mêmes contrôles que l'application et répond par l'évènement nexus_system_local_result.",
+      "fields": {
+        "device_id": {
+          "name": "Appareil",
+          "description": "L'appareil Nexus System."
+        },
+        "data": {
+          "name": "Données",
+          "description": "Objet JSON accepté par l'appareil (voir la page « MQTT local et domotique » de la documentation), par exemple {\"outputs\": {\"lights\": true}}."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "unknown_device": {
+      "message": "{device} n'est pas un appareil Nexus System vu sur le broker."
+    },
+    "not_loaded": {
+      "message": "Nexus System Local n'est pas chargée."
+    }
+  }
+}
